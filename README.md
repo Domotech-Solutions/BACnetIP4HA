@@ -7,7 +7,7 @@ Integración BACnet/IP para Home Assistant (HACS), basada en [bacpypes3](https:/
 ## Qué hace
 
 - Descubrimiento de dispositivos (Who-Is / I-Am) o alta manual por IP y device instance.
-- Registro como *foreign device* en un BBMD para redes en distintas subredes.
+- Puerto UDP configurable entre los 10 que define el estándar (0xBAC0–0xBAC9) y registro como *foreign device* en un BBMD para redes en distintas subredes.
 - Lectura de puntos con ReadPropertyMultiple y escritura con prioridad configurable (1-16).
 - **Objetos Schedule**: lectura del horario semanal y escritura mediante servicios.
 
@@ -51,7 +51,7 @@ El tipo del valor (real, booleano, entero...) se toma del `schedule-default` del
 
 ## Limitaciones conocidas (0.1.0)
 
-- Un único socket UDP por instancia de HA: no puede coexistir en el mismo puerto (47808) con otra integración BACnet, p. ej. el add-on de Bepacom. Usa otro puerto en uno de los dos.
+- Un único socket UDP por instancia de HA, compartido por todos los dispositivos. El puerto se elige al configurar la integración (0xBAC0–0xBAC9, es decir 47808–47817): comprueba que ninguna otra aplicación use el mismo puerto en el equipo.
 - Home Assistant OS necesita red con acceso al segmento BACnet (el broadcast no cruza routers: usa BBMD o alta manual).
 - Las suscripciones COV están implementadas en el cliente pero **todavía no se usan ni se han probado**; el estado se obtiene por sondeo.
 - `exception-schedule` y `calendar` solo se cuentan/listan, aún no se editan.

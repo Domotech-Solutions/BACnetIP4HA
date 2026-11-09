@@ -30,6 +30,13 @@ _LOGGER = logging.getLogger(__name__)
 
 MANUAL = "manual"
 
+CONF_LOCAL_IP = "local_ip"
+CONF_PREFIX = "prefix"
+CONF_PORT = "port"
+
+# El estándar BACnet/IP define 10 puertos UDP: 0xBAC0 (47808) a 0xBAC9 (47817).
+PORT_OPTIONS = {str(0xBAC0 + i): f"{0xBAC0 + i} (0xBAC{i:X})" for i in range(10)}
+
 
 class BACnetConfigFlow(ConfigFlow, domain=DOMAIN):
     VERSION = 1
@@ -61,7 +68,10 @@ class BACnetConfigFlow(ConfigFlow, domain=DOMAIN):
     async def async_step_user(self, user_input: dict[str, Any] | None = None) -> ConfigFlowResult:
         errors: dict[str, str] = {}
         if user_input is not None:
-            self._local_address = user_input[CONF_LOCAL_ADDRESS].strip()
+            self._local_address = (
+                f"{user_input[CONF_LOCAL_IP].strip()}/{user_input[CONF_PREFIX]}"
+                f":{user_input[CONF_PORT]}"
+            )
             self._bbmd = (user_input.get(CONF_BBMD) or "").strip() or None
             try:
                 client = await self._client()
@@ -78,12 +88,13 @@ class BACnetConfigFlow(ConfigFlow, domain=DOMAIN):
                 return await self.async_step_device()
 
         source_ip = await network.async_get_source_ip(self.hass)
-        default_local = f"{source_ip}/24:{DEFAULT_PORT}"
         return self.async_show_form(
             step_id="user",
             data_schema=vol.Schema(
                 {
-                    vol.Required(CONF_LOCAL_ADDRESS, default=default_local): str,
+                    vol.Required(CONF_LOCAL_IP, default=source_ip): str,
+                    vol.Required(CONF_PREFIX, default=24): vol.All(int, vol.Range(min=1, max=32)),
+                    vol.Required(CONF_PORT, default=str(DEFAULT_PORT)): vol.In(PORT_OPTIONS),
                     vol.Optional(CONF_BBMD): str,
                 }
             ),

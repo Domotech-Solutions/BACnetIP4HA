@@ -3,9 +3,11 @@
     "step": {
       "user": {
         "title": "BACnet/IP network",
-        "description": "Local address with mask and port (e.g. 192.168.1.10/24:47808). Only one process can bind the UDP port: other BACnet integrations (e.g. Bepacom) must use a different port.",
+        "description": "IP of the HA interface on the BACnet network, prefix length and UDP port (0xBAC0–0xBAC9). Make sure no other application on this host uses the same port.",
         "data": {
-          "local_address": "Local address",
+          "local_ip": "Local IP",
+          "prefix": "Prefix length (bits)",
+          "port": "BACnet UDP port",
           "bbmd": "BBMD (optional, foreign device registration)"
         }
       },

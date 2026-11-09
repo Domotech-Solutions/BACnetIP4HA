@@ -3,15 +3,19 @@
     "step": {
       "user": {
         "title": "Red BACnet/IP",
-        "description": "Dirección local con máscara y puerto (p. ej. 192.168.1.10/24:47808). Solo un puerto UDP puede usarse a la vez: otras integraciones BACnet (p. ej. Bepacom) deben usar otro puerto.",
+        "description": "IP de la interfaz de HA en la red BACnet, longitud de máscara y puerto UDP (0xBAC0–0xBAC9). Asegúrate de que ninguna otra aplicación use el mismo puerto en este equipo.",
         "data": {
-          "local_address": "Dirección local",
+          "local_ip": "IP local",
+          "prefix": "Máscara (bits)",
+          "port": "Puerto UDP BACnet",
           "bbmd": "BBMD (opcional, para registrarse como foreign device)"
         }
       },
       "device": {
         "title": "Dispositivo",
-        "data": { "device": "Dispositivo" }
+        "data": {
+          "device": "Dispositivo"
+        }
       },
       "manual": {
         "title": "Dispositivo manual",
@@ -22,14 +26,18 @@
       },
       "objects": {
         "title": "Objetos",
-        "data": { "objects": "Objetos a importar" }
+        "data": {
+          "objects": "Objetos a importar"
+        }
       }
     },
     "error": {
       "cannot_bind": "No se pudo abrir el puerto BACnet en esa dirección",
       "cannot_connect": "El dispositivo no responde"
     },
-    "abort": { "already_configured": "Este dispositivo ya está configurado" }
+    "abort": {
+      "already_configured": "Este dispositivo ya está configurado"
+    }
   },
   "options": {
     "step": {
