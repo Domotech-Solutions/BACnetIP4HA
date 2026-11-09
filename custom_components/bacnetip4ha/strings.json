@@ -1,0 +1,60 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Red BACnet/IP",
+        "description": "Dirección local con máscara y puerto (p. ej. 192.168.1.10/24:47808). Solo un puerto UDP puede usarse a la vez: otras integraciones BACnet (p. ej. Bepacom) deben usar otro puerto.",
+        "data": {
+          "local_address": "Dirección local",
+          "bbmd": "BBMD (opcional, para registrarse como foreign device)"
+        }
+      },
+      "device": {
+        "title": "Dispositivo",
+        "data": { "device": "Dispositivo" }
+      },
+      "manual": {
+        "title": "Dispositivo manual",
+        "data": {
+          "device_address": "Dirección IP[:puerto]",
+          "device_instance": "Device instance"
+        }
+      },
+      "objects": {
+        "title": "Objetos",
+        "data": { "objects": "Objetos a importar" }
+      }
+    },
+    "error": {
+      "cannot_bind": "No se pudo abrir el puerto BACnet en esa dirección",
+      "cannot_connect": "El dispositivo no responde"
+    },
+    "abort": { "already_configured": "Este dispositivo ya está configurado" }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "data": {
+          "scan_interval": "Intervalo de sondeo (s)",
+          "write_priority": "Prioridad de escritura (1-16)"
+        }
+      }
+    }
+  },
+  "services": {
+    "get_schedule": {
+      "name": "Leer horario",
+      "description": "Devuelve el horario semanal de un objeto Schedule."
+    },
+    "set_weekly_schedule": {
+      "name": "Escribir horario semanal",
+      "description": "Escribe el weekly-schedule (lunes a domingo).",
+      "fields": {
+        "weekly": {
+          "name": "Horario",
+          "description": "Lista de 7 días; cada día es una lista de {time, value}."
+        }
+      }
+    }
+  }
+}

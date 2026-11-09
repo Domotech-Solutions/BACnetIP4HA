@@ -1,0 +1,12 @@
+{
+  "domain": "bacnetip4ha",
+  "name": "BACnet/IP for Home Assistant",
+  "codeowners": ["@Domotech-Solutions"],
+  "config_flow": true,
+  "documentation": "https://github.com/Domotech-Solutions/BACnetIP4HA",
+  "integration_type": "hub",
+  "iot_class": "local_polling",
+  "issue_tracker": "https://github.com/Domotech-Solutions/BACnetIP4HA/issues",
+  "requirements": ["bacpypes3==0.0.110"],
+  "version": "0.1.0"
+}

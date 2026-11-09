@@ -1,0 +1,17 @@
+get_schedule:
+  target:
+    entity:
+      integration: bacnetip4ha
+      domain: sensor
+
+set_weekly_schedule:
+  target:
+    entity:
+      integration: bacnetip4ha
+      domain: sensor
+  fields:
+    weekly:
+      required: true
+      example: '[[{"time": "07:30", "value": 22}], [], [], [], [], [], []]'
+      selector:
+        object:

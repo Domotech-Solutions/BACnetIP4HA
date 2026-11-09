@@ -1,0 +1,66 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "BACnet/IP network",
+        "description": "Local address with mask and port (e.g. 192.168.1.10/24:47808). Only one process can bind the UDP port: other BACnet integrations (e.g. Bepacom) must use a different port.",
+        "data": {
+          "local_address": "Local address",
+          "bbmd": "BBMD (optional, foreign device registration)"
+        }
+      },
+      "device": {
+        "title": "Device",
+        "data": {
+          "device": "Device"
+        }
+      },
+      "manual": {
+        "title": "Manual device",
+        "data": {
+          "device_address": "IP[:port]",
+          "device_instance": "Device instance"
+        }
+      },
+      "objects": {
+        "title": "Objects",
+        "data": {
+          "objects": "Objects to import"
+        }
+      }
+    },
+    "error": {
+      "cannot_bind": "Could not open the BACnet port on that address",
+      "cannot_connect": "Device is not responding"
+    },
+    "abort": {
+      "already_configured": "This device is already configured"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "data": {
+          "scan_interval": "Polling interval (s)",
+          "write_priority": "Write priority (1-16)"
+        }
+      }
+    }
+  },
+  "services": {
+    "get_schedule": {
+      "name": "Read schedule",
+      "description": "Returns the weekly schedule of a Schedule object."
+    },
+    "set_weekly_schedule": {
+      "name": "Write weekly schedule",
+      "description": "Writes weekly-schedule (Monday to Sunday).",
+      "fields": {
+        "weekly": {
+          "name": "Schedule",
+          "description": "List of 7 days; each day is a list of {time, value}."
+        }
+      }
+    }
+  }
+}
